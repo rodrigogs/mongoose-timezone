@@ -1,7 +1,7 @@
 import test from 'ava';
 import mongoose from 'mongoose';
 import dotevn from 'dotenv';
-import timeZone from '.';
+import timeZone from './index';
 
 dotevn.load();
 

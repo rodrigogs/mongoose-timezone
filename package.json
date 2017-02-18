@@ -26,11 +26,15 @@
   },
   "devDependencies": {
     "ava": "^0.18.1",
+    "codeclimate-test-reporter": "^0.4.1",
     "dotenv": "^4.0.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.2.0",
     "mongoose": "^4.8.3",
     "nyc": "^10.1.2"
+  },
+  "ava": {
+    "babel": "inherit"
   }
 }

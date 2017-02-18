@@ -1,5 +1,6 @@
 # mongoose-timezone
 
+[![Build Status](https://travis-ci.org/rodrigogs/mongoose-timezone.svg?branch=master)](https://travis-ci.org/rodrigogs/mongoose-timezone)
 [![Code Climate](https://codeclimate.com/github/rodrigogs/mongoose-timezone/badges/gpa.svg)](https://codeclimate.com/github/rodrigogs/mongoose-timezone)
 [![dependencies Status](https://david-dm.org/rodrigogs/mongoose-timezone/status.svg)](https://david-dm.org/rodrigogs/mongoose-timezone)
 [![devDependency Status](https://david-dm.org/rodrigogs/mongoose-timezone/dev-status.svg)](https://david-dm.org/rodrigogs/mongoose-timezone#info=devDependencies)
