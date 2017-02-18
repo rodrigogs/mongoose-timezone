@@ -1,43 +1,36 @@
-# easyvpn
+# mongoose-timezone
 
-[![Code Climate](https://codeclimate.com/github/rodrigogs/easyvpn/badges/gpa.svg)](https://codeclimate.com/github/rodrigogs/easyvpn)
-[![dependencies Status](https://david-dm.org/rodrigogs/easyvpn/status.svg)](https://david-dm.org/rodrigogs/easyvpn)
-[![devDependency Status](https://david-dm.org/rodrigogs/easyvpn/dev-status.svg)](https://david-dm.org/rodrigogs/easyvpn#info=devDependencies)
-[![npm](https://img.shields.io/npm/dt/easyvpn.svg)](https://www.npmjs.com/package/easyvpn)
-[![npm version](https://badge.fury.io/js/easyvpn.svg)](https://badge.fury.io/js/easyvpn)
+[![Code Climate](https://codeclimate.com/github/rodrigogs/mongoose-timezone/badges/gpa.svg)](https://codeclimate.com/github/rodrigogs/mongoose-timezone)
+[![dependencies Status](https://david-dm.org/rodrigogs/mongoose-timezone/status.svg)](https://david-dm.org/rodrigogs/mongoose-timezone)
+[![devDependency Status](https://david-dm.org/rodrigogs/mongoose-timezone/dev-status.svg)](https://david-dm.org/rodrigogs/mongoose-timezone#info=devDependencies)
+[![npm](https://img.shields.io/npm/dt/mongoose-timezone.svg)](https://www.npmjs.com/package/mongoose-timezone)
+[![npm version](https://badge.fury.io/js/mongoose-timezone.svg)](https://badge.fury.io/js/mongoose-timezone)
 
-This project was inspired by [autovpn](https://github.com/adtac/autovpn). Automatically connect you to a random VPN in a country of your choice. It uses openvpn to connect you to a server obtained from [VPN Gate](http://www.vpngate.net/en/).
-
-Differently from autovpn, this tool is able to run on Windows. Instead of executing `sudo` directly from the code, this tool leaves the task up to the user, so it is suposed to work on any platform. 
- 
-## Requirements
-> [openvpn](https://openvpn.net/index.php/open-source/downloads.html) must be installed and set in the environment.
-
-> your cmd/powershell/shell etc... must have user elevation.
+Mongoose plugin to normalize stored dates timezone.
 
 ## Install
-> npm install easyvpn -g
+> npm install mongoose-timezone --save
 
 ## Usage
-To connect to any received vpn connection:
-> easyvpn
+```javascript
+const mongoose = require('mongoose');
+const timeZone = require('mongoose-timezone');
 
-To connect to a VPN from a specific country:
-> easyvpn -c US
+const Schema = new mongoose.Schema({
+    date: Date,
+});
 
-Country name may be short or long:
-> easyvpn -c Japan
+// If no path is given, all date fields will be applied
+Schema.plugin(timeZone, { paths: ['date'] });
+mongoose.model('Schema', Schema);
+```
 
-> easyvpn -c JP
+# Notes
+* [insertMany](http://mongoosejs.com/docs/api.html#model_Model.insertMany) function is not supported due to mongoose's API limitations
 
-You can even wait for easyvpn to resolve the countries and then choose between them:
-> easyvpn -q
-
-A proxy can be used to get data from vpngate.net:
-> easyvpn -p http://myproxy:3128
-
-To pass special arguments to openvpn:
-> easyvpn -o "--dev-type tun --dev tun0"
+## TODO
+* documentation
+* cover everything with tests
 
 ## Contributing
 1. Fork it!
@@ -46,9 +39,5 @@ To pass special arguments to openvpn:
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
 
-## Disclaimer
-Regarding the security concerns, this tool is not even close to be safe to use. VPN connections are dangerous and may expose you to threats.
-I'd never recommend to use this tool inside a network that can't be compromised.
-
 ## License
-[Licence](https://github.com/rodrigogs/easyvpn/blob/master/LICENSE) © Rodrigo Gomes da Silva
+[Licence](https://github.com/rodrigogs/mongoose-timezone/blob/master/LICENSE) © Rodrigo Gomes da Silva
