@@ -1,0 +1,36 @@
+{
+  "name": "mongoose-timezone",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=lcov --reporter=text-lcov ava",
+    "eslint": "eslint . --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigogs/mongoose-timezone.git"
+  },
+  "author": "Rodrigo Gomes da Silva <rodrigo.smscom@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/rodrigogs/mongoose-timezone/issues"
+  },
+  "homepage": "https://github.com/rodrigogs/mongoose-timezone#readme",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "moment-timezone": "^0.5.11"
+  },
+  "peerDependencies": {
+    "mongoose": "4.x"
+  },
+  "devDependencies": {
+    "ava": "^0.18.1",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "mongoose": "^4.8.3",
+    "nyc": "^10.1.2"
+  }
+}
