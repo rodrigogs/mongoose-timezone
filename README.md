@@ -25,7 +25,7 @@ Schema.plugin(timeZone, { paths: ['date'] });
 mongoose.model('Schema', Schema);
 ```
 
-# Notes
+## Notes
 * [insertMany](http://mongoosejs.com/docs/api.html#model_Model.insertMany) function is not supported due to mongoose's API limitations
 
 ## TODO
