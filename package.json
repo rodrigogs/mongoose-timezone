@@ -33,8 +33,5 @@
     "eslint-plugin-import": "^2.2.0",
     "mongoose": "^4.8.3",
     "nyc": "^10.1.2"
-  },
-  "ava": {
-    "babel": "inherit"
   }
 }
