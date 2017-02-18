@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rodrigogs/mongoose-timezone.svg?branch=master)](https://travis-ci.org/rodrigogs/mongoose-timezone)
 [![Code Climate](https://codeclimate.com/github/rodrigogs/mongoose-timezone/badges/gpa.svg)](https://codeclimate.com/github/rodrigogs/mongoose-timezone)
+[![Test Coverage](https://codeclimate.com/github/rodrigogs/mongoose-timezone/badges/coverage.svg)](https://codeclimate.com/github/rodrigogs/mongoose-timezone/coverage)
 [![dependencies Status](https://david-dm.org/rodrigogs/mongoose-timezone/status.svg)](https://david-dm.org/rodrigogs/mongoose-timezone)
 [![devDependency Status](https://david-dm.org/rodrigogs/mongoose-timezone/dev-status.svg)](https://david-dm.org/rodrigogs/mongoose-timezone#info=devDependencies)
 [![npm](https://img.shields.io/npm/dt/mongoose-timezone.svg)](https://www.npmjs.com/package/mongoose-timezone)
