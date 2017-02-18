@@ -8,7 +8,9 @@
 [![npm](https://img.shields.io/npm/dt/mongoose-timezone.svg)](https://www.npmjs.com/package/mongoose-timezone)
 [![npm version](https://badge.fury.io/js/mongoose-timezone.svg)](https://badge.fury.io/js/mongoose-timezone)
 
-Mongoose plugin to normalize stored dates timezone.
+A mongoose plugin to normalize stored dates timezone. By default mongo dates are stored in UTC format, this behaviour may cause problems when using advanced aggregation queries or when retrieving those dates from another system with different timezone.
+
+mongoose-timezone basically adds the current timezone offset to the date before store and removes the offset when retrieving data. This way dates are kept proportional in the database and in the app.
 
 ## Install
 > npm install mongoose-timezone --save
@@ -20,19 +22,21 @@ const timeZone = require('mongoose-timezone');
 
 const Schema = new mongoose.Schema({
     date: Date,
+    subDocument: {
+        subDate: {
+            type: Date,
+        },
+    },
 });
 
 // If no path is given, all date fields will be applied
-Schema.plugin(timeZone, { paths: ['date'] });
+Schema.plugin(timeZone, { paths: ['date', 'subDocument.subDate'] });
 mongoose.model('Schema', Schema);
 ```
 
 ## Notes
 * [insertMany](http://mongoosejs.com/docs/api.html#model_Model.insertMany) function is not supported due to mongoose's API limitations
-
-## TODO
-* documentation
-* cover everything with tests
+* [update](http://mongoosejs.com/docs/api.html#model_Model.update) function is not supported due to mongoose's API limitations, [save](http://mongoosejs.com/docs/api.html#model_Model.save) function could be used instead.
 
 ## Contributing
 1. Fork it!
