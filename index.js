@@ -44,12 +44,15 @@ module.exports = function timeZone(schema, options = {}) {
   }
 
   function subtractOffset(docs, next) {
-    if (docs && !_.isArray(docs)) docs = [docs.constructor.name === 'model' ? docs : this];
-    _.each(docs, (result, index) => {
-      fixOffset(result, false, () => {
-        if (index + 1 === docs.length) next();
+    if(docs) {
+      if (docs && !_.isArray(docs)) docs = [docs.constructor.name === 'model' ? docs : this];
+      _.each(docs, (result, index) => {
+        fixOffset(result, false, () => {
+          if (index + 1 === docs.length) next();
+        });
       });
-    });
+    }
+    next();
   }
 
   schema.pre('save', addOffset);
