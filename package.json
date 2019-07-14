@@ -1,10 +1,10 @@
 {
   "name": "mongoose-timezone",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text-lcov ava",
+    "test": "dotenv jest --coverage",
     "eslint": "eslint . --ext .js"
   },
   "repository": {
@@ -18,20 +18,20 @@
   },
   "homepage": "https://github.com/rodrigogs/mongoose-timezone#readme",
   "dependencies": {
-    "lodash": "^4.17.4",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
     "moment-timezone": "^0.5.11"
   },
   "peerDependencies": {
     "mongoose": "4.x"
   },
   "devDependencies": {
-    "ava": "^0.18.1",
     "codeclimate-test-reporter": "^0.4.1",
-    "dotenv": "^4.0.0",
+    "dotenv-cli": "^2.0.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "mongoose": "^4.8.3",
-    "nyc": "^10.1.2"
+    "jest": "^24.8.0",
+    "mongoose": "^4.8.3"
   }
 }
