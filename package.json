@@ -26,7 +26,6 @@
     "mongoose": "4.x"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.4.1",
     "dotenv-cli": "^2.0.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb-base": "^11.1.0",
