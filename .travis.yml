@@ -1,7 +1,4 @@
 language: node_js
-env:
-  global:
-    CC_TEST_REPORTER_ID=$TRAVIS_BUILD_ID
 node_js:
   - 7.6.0
 services:
