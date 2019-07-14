@@ -1,0 +1,12 @@
+.idea
+coverage
+.codeclimate.yml
+.env
+.editorconfig
+.eslintignore
+.eslintrc.yml
+.gitattributes
+.gitignore
+.npmignore
+.travis.yml
+*.iml

@@ -1,32 +1,23 @@
-import test from 'ava';
-import mongoose from 'mongoose';
-import moment from 'moment-timezone';
-import dotevn from 'dotenv';
-import timeZone from './index';
+require('dotenv').config();
 
-dotevn.load();
+const mongoose = require('mongoose');
+const moment = require('moment-timezone');
 
 const offset = moment().utcOffset() * 60 * 1000;
+let MongooseSchema;
 let Schema;
 let Collection;
 
-test.cb.before((t) => {
-  mongoose.connect(process.env.DATABASE_URL)
-    .then(() => {
-      const db = mongoose.connections[0].db;
-      Collection = db.collection('schemas');
-      t.end();
-    })
-    .catch(t.fail);
-});
+const timeZone = require('./index');
 
-test.cb.after((t) => {
-  mongoose.disconnect()
-    .then(t.end)
-    .catch(t.fail);
-});
+beforeAll(async () => {
+  const connectionString = process.env.DATABASE_URL;
+  if (!connectionString) throw new Error('Environment variable "DATABASE_URL" must be a valid connection string');
 
-test.cb.beforeEach((t) => {
+  await mongoose.connect(process.env.DATABASE_URL);
+  const db = mongoose.connections[0].db;
+  Collection = db.collection('schemas');
+
   Schema = new mongoose.Schema({
     date1: {
       type: Date,
@@ -43,47 +34,42 @@ test.cb.beforeEach((t) => {
       },
     },
   });
-  t.end();
+
+  Schema.plugin(timeZone);
+
+  MongooseSchema = mongoose.model('Schema', Schema);
 });
 
-test.cb('Should save the model and return the exact saved values', (t) => {
-  Schema.plugin(timeZone);
-  const TestSchema = mongoose.model('Schema', Schema);
+afterAll(() => mongoose.disconnect());
 
-  const now = new Date();
-  const fixedOffset = now.valueOf() + offset;
+describe('timeZone', () => {
 
-  let savedDoc;
-  new TestSchema({ date1: now })
-    .save()
-    .then(doc => (savedDoc = doc))
-    .then(doc => t.is(doc.date1.valueOf(), now.valueOf()))
-    .then(() => Collection.find({ _id: savedDoc._id }).toArray())
-    .then(doc => t.is(doc[0].date1.valueOf(), fixedOffset))
-    .then(t.end)
-    .catch(t.fail);
-});
+  it('should save the model and return the exact saved values', async () => {
+    const now = new Date();
+    const fixedOffset = now.valueOf() + offset;
 
-test.cb('Should update the model and return the exact updated values', (t) => {
-  Schema.plugin(timeZone);
-  const TestSchema = mongoose.model('Schema', Schema);
+    const mongooseDoc = await (new MongooseSchema({ date1: now }).save());
+    const mongoDocs = await Collection.find({ _id: mongooseDoc._id }).toArray();
 
-  const now = new Date();
-  const tomorrow = new Date(new Date().valueOf() + 86400000);
-  const tomorrowFixedOffset = tomorrow.valueOf() + offset;
+    expect(mongooseDoc.date1.valueOf()).toEqual(now.valueOf());
+    expect(mongoDocs[0].date1.valueOf()).toEqual(fixedOffset);
+  });
 
-  let savedDoc;
-  new TestSchema({ date1: now })
-    .save()
-    .then(doc => (savedDoc = doc))
-    .then((doc) => {
-      doc.date1 = tomorrow;
-      return doc.save();
-    })
-    .then(() => TestSchema.findOne({ _id: savedDoc._id }))
-    .then(doc => t.is(doc.date1.valueOf(), tomorrow.valueOf()))
-    .then(() => Collection.find({ _id: savedDoc._id }).toArray())
-    .then(doc => t.is(doc[0].date1.valueOf(), tomorrowFixedOffset))
-    .then(t.end)
-    .catch(t.fail);
+  it('should update the model and return the exact updated values', async () => {
+    const now = new Date();
+    const tomorrow = new Date(new Date().valueOf() + 86400000);
+    const tomorrowFixedOffset = tomorrow.valueOf() + offset;
+
+    const mongooseDoc = await (new MongooseSchema({ date1: now }).save());
+    mongooseDoc.date1 = tomorrow;
+
+    await mongooseDoc.save();
+
+    const retrieved = await MongooseSchema.findOne({ _id: mongooseDoc._id });
+    const mongoDocs = await Collection.find({ _id: retrieved._id }).toArray();
+
+    expect(retrieved.date1.valueOf()).toEqual(tomorrow.valueOf());
+    expect(mongoDocs[0].date1.valueOf()).toEqual(tomorrowFixedOffset);
+  });
+
 });
