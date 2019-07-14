@@ -11,6 +11,5 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - npm test
-  - codeclimate-test-reporter < coverage/lcov.info
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
