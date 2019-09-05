@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const moment = require('moment-timezone');
 
 const offset = moment().utcOffset() * 60 * 1000;
+const { ObjectId } = mongoose.Types;
 let MongooseSchema;
 let Schema;
 let Collection;
@@ -70,6 +71,10 @@ describe('timeZone', () => {
 
     expect(retrieved.date1.valueOf()).toEqual(tomorrow.valueOf());
     expect(mongoDocs[0].date1.valueOf()).toEqual(tomorrowFixedOffset);
+  });
+
+  it('should work when no document is retrieved', async () => {
+    await MongooseSchema.findOne({ _id: new ObjectId() });
   });
 
 });

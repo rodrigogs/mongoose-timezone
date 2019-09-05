@@ -44,6 +44,9 @@ module.exports = function timeZone(schema, options = {}) {
 
   function subtractOffset(docs, next) {
     const documents = [];
+
+    if (!docs) return next();
+
     if (!Array.isArray(docs)) {
       documents.push((docs.constructor.name === 'model') ? docs : this);
     } else {
