@@ -15,7 +15,7 @@ beforeAll(async () => {
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) throw new Error('Environment variable "DATABASE_URL" must be a valid connection string');
 
-  await mongoose.connect(process.env.DATABASE_URL);
+  await mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
   const db = mongoose.connections[0].db;
   Collection = db.collection('schemas');
 
